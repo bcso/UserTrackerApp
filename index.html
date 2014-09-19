@@ -15,7 +15,12 @@
     </div>
 
 
+        
+        
     <script type="text/template" id = "user-list-template">
+        <a href="#/new" class = "btn btn-primary">
+            New User
+        </a>
         <table class="table striped">
             <thead>
                 <tr>
@@ -68,10 +73,11 @@
             }
         });
         
-        
+        //I listen to routes
         var Router = Backbone.Router.extend({
            routes:{
-               '':'home'
+               '':'home',
+               'new':'editUser',
            }
         });
         
@@ -80,6 +86,9 @@
         var router = new Router();
         router.on('route:home', function(){
             userList.render();
+        });
+        router.on('route:editUser', function(){
+           console.log("Show user form...") 
         });
         
         Backbone.history.start();
