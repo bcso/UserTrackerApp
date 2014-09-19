@@ -15,6 +15,31 @@
     </div>
 
 
+    <script type="text/template" id = "user-list-template">
+        <table class="table striped">
+            <thead>
+                <tr>
+                    <th>First name</th>
+                    <th>Last name</th>
+                    <th>Age</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <% _.each(users, function(user){ %>
+                    <tr>
+                        <td><%= user.get('firstname')%></td>
+                        <td><%= user.get('lastname')%></td>
+                        <td><%= user.get('age')%></td>
+                        <td></td>
+                    </tr>
+                <% }); %>
+            </tbody>
+            
+            
+    </script>
+        
+        
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.8.2/jquery.min.js" type="text/javascript"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.2/underscore-min.js" type="text/javascript"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/backbone.js/0.9.2/backbone-min.js"></script>
@@ -31,7 +56,15 @@
         var UserList = Backbone.View.extend({
             el: '.page',
             render: function(){
-                this.$el.html('!CONTENT SHOULD SHOW HERE!');
+                var users = new Users();
+                //that being the Backbone.View
+                var that = this;
+                users.fetch({
+                    success:function(users){
+                        var template = _.template($('#user-list-template').html(), {users: users.models});
+                        that.$el.html(template);
+                    }
+                })
             }
         });
         
