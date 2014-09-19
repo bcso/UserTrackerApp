@@ -73,6 +73,13 @@
             }
         });
         
+        var EditUser = Backbone.View.extend({
+           el: '.page',
+            render: function(){
+                this.$el.html('Show the form here');
+            }
+        });
+        
         //I listen to routes
         var Router = Backbone.Router.extend({
            routes:{
@@ -82,13 +89,14 @@
         });
         
         var userList = new UserList();
+        var editUser = new EditUser();
         
         var router = new Router();
         router.on('route:home', function(){
             userList.render();
         });
         router.on('route:editUser', function(){
-           console.log("Show user form...") 
+           editUser.render();
         });
         
         Backbone.history.start();
